@@ -1,0 +1,27 @@
+#!/bin/tcsh
+# Job name:
+#SBATCH --job-name=adpmodel
+#
+# Number of nodes:
+#SBATCH --nodes=1
+#
+# Number of tasks (one for each GPU desired for use case) (example):
+#SBATCH --ntasks=1
+#
+#Number of GPUs, this can be in the format of "gpu:[1-4]", or "gpu:K80:[1-4] with the$
+#SBATCH --gres=gpu:1
+#
+# Wall clock limit:
+#SBATCH --time=72:00:00
+#
+## Command(s) to run (example):
+
+nvidia-smi
+
+cd /sciclone/home/hmbaier/dynGeo/final_github
+
+module load anaconda3/2023.09
+
+activate caoe2
+
+python3 train_all_kfold.py final_test GeoConv --bs 1

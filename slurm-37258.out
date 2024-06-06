@@ -1,0 +1,136 @@
+Thu Jun  6 10:20:19 2024       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 545.23.06              Driver Version: 545.23.06    CUDA Version: 12.3     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A30                     Off | 00000000:B3:00.0 Off |                    0 |
+| N/A   24C    P0              28W / 165W |      4MiB / 24576MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+Namespace(folder_name='final_test', model_name='GeoConv', bs=1, num_epochs=200, lr=5e-05, iters=64, sample=0, num_kfolds=3, labels_path='/sciclone/geograd/Heather/c1/data/clean/africa_subset_ys.json', transforms_path='/sciclone/geograd/Heather/c1/transform_stats_sc.json', results_dir='/sciclone/geograd/heather_data/spa_reg/', device='cuda', use_scheduler=False, postval=False, ts4=False, use_means=False, norm_coords=False)
+0
+Number of images: 9558
+ResNet(
+  (conv1): AdaptiveConvLayer(
+    (hypernet): HyperNet(
+      (fc1): Linear(in_features=2, out_features=128, bias=True)
+      (fc4): Linear(in_features=128, out_features=9408, bias=True)
+    )
+  )
+  (bn1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+  (relu): ReLU(inplace=True)
+  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (layer1): CustomSequential(
+    (modules_list): ModuleList(
+      (0-1): 2 x BasicBlock(
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): Identity()
+      )
+    )
+  )
+  (layer2): CustomSequential(
+    (modules_list): ModuleList(
+      (0): BasicBlock(
+        (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): Identity()
+        (downsample): CustomSequential(
+          (modules_list): ModuleList(
+            (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          )
+        )
+      )
+      (1): BasicBlock(
+        (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): Identity()
+      )
+    )
+  )
+  (layer3): CustomSequential(
+    (modules_list): ModuleList(
+      (0): BasicBlock(
+        (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): Identity()
+        (downsample): CustomSequential(
+          (modules_list): ModuleList(
+            (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          )
+        )
+      )
+      (1): BasicBlock(
+        (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): Identity()
+      )
+    )
+  )
+  (layer4): CustomSequential(
+    (modules_list): ModuleList(
+      (0): BasicBlock(
+        (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): AdaptiveConvLayer(
+          (hypernet): HyperNet(
+            (fc1): Linear(in_features=2, out_features=128, bias=True)
+            (fc4): Linear(in_features=128, out_features=262144, bias=True)
+          )
+        )
+        (downsample): CustomSequential(
+          (modules_list): ModuleList(
+            (0): AdaptiveConvLayer(
+              (hypernet): HyperNet(
+                (fc1): Linear(in_features=2, out_features=128, bias=True)
+                (fc4): Linear(in_features=128, out_features=131072, bias=True)
+              )
+            )
+            (1): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          )
+        )
+      )
+      (1): BasicBlock(
+        (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (adaptive_layer): AdaptiveConvLayer(
+          (hypernet): HyperNet(
+            (fc1): Linear(in_features=2, out_features=128, bias=True)
+            (fc4): Linear(in_features=128, out_features=262144, bias=True)
+          )
+        )
+      )
+    )
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=512, out_features=1, bias=True)
+)
+Epoch 0/199
+----------
